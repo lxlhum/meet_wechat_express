@@ -19,4 +19,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/test',  wechat(config,function(req, res, next) {}));
 
+var api = new API(config.appid, config.appsecret);
+console.log("wechatapi:"+api);
+
 module.exports = router;
