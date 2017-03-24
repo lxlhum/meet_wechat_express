@@ -1,31 +1,67 @@
 {
   "button":[
     {
-      "type":"click",
-      "name":"今日歌曲",
-      "key":"V1001_TODAY_MUSIC"
-    },
-    {
-      "type":"click",
-      "name":"歌手简介",
-      "key":"V1001_TODAY_SINGER"
-    },
-    {
-      "name":"菜单",
+      "name":"正面管教",
       "sub_button":[
         {
           "type":"view",
-          "name":"搜索",
-          "url":"http://www.soso.com/"
+          "name":"最近课程",
+          "url":"http://www.yangtz.com/"
         },
         {
           "type":"view",
-          "name":"视频",
-          "url":"http://v.qq.com/"
+          "name":"课后辅导",
+          "url":"http://www.yangtz.com/"
         },
         {
           "type":"click",
-          "name":"赞一下我们",
+          "name":"米特家庭故事",
+          "key":"V1001_GOOD"
+        },
+        {
+          "type":"click",
+          "name":"线上&线下读书会",
+          "key":"V1001_GOOD"
+        }
+        
+      ]
+    },
+    {
+      "name":"儿童礼仪",
+      "sub_button":[
+        {
+          "type":"view",
+          "name":"儿童礼仪",
+          "url":"http://www.yangtz.com/"
+        },
+        {
+          "type":"view",
+          "name":"最新开班",
+          "url":"http://www.yangtz.com/"
+        },
+        {
+          "type":"click",
+          "name":"往期课程",
+          "key":"V1001_GOOD"
+        }
+      ]
+    },
+    {
+      "name":"摄影",
+      "sub_button":[
+        {
+          "type":"view",
+          "name":"近期开课",
+          "url":"http://www.yangtz.com/"
+        },
+        {
+          "type":"view",
+          "name":"学员分享",
+          "url":"http://www.yangtz.com/"
+        },
+        {
+          "type":"click",
+          "name":"往期课程",
           "key":"V1001_GOOD"
         }
       ]
