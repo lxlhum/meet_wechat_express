@@ -35,9 +35,14 @@ api.createMenu(menu, function (err, result) {
 
 
 api.getFollowers(function (err, data, res) {
-  var mydata = data["data"];
+  var mydata = data["data"]["openid"];
   for (Followers in mydata) {
     console.log("getFollowers:" + mydata[Followers]); // { errcode: 0, errmsg: 'ok' }
+    api.getUser(mydata[Followers], function (err, data, res) {
+      for (key in data) {
+        console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
+      }
+    });
   }
 });
 
