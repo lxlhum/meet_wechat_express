@@ -16,7 +16,8 @@ api.getAccessToken(function (err, token) {
   console.log("getAccessToken-err:"+err);
   console.log("accessToken:"+token);  //accessToken
 });
-var menu = JSON.stringify(require('menu.json'));
+var menu = JSON.stringify(require('./menu.json'));
+
 api.createMenu(menu, function (err, result) {
   console.log("createMenu:"+result); // { errcode: 0, errmsg: 'ok' }
 });
