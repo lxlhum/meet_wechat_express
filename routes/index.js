@@ -18,6 +18,9 @@ api.getAccessToken(function (err, token) {
 });
 var menu = JSON.stringify(require('./menu.json'));
 
+// createMenu:errcode
+// createMenu:errmsg
+
 api.createMenu(menu, function (err, result) {
   for (menuitem in result) {
     console.log("createMenu:" + result[menuitem]); // { errcode: 0, errmsg: 'ok' }
@@ -25,9 +28,15 @@ api.createMenu(menu, function (err, result) {
 
 });
 
+// getFollowers:total
+// getFollowers:count
+// getFollowers:data
+// getFollowers:next_openid
+
+
 api.getFollowers(function (err, data, res) {
-  for (Followers in data) {
-    console.log("getFollowers:" + data[Followers]); // { errcode: 0, errmsg: 'ok' }
+  for (Followers in data[data]) {
+    console.log("getFollowers:" + data[data][Followers]); // { errcode: 0, errmsg: 'ok' }
   }
 });
 
