@@ -20,14 +20,14 @@ var menu = JSON.stringify(require('./menu.json'));
 
 api.createMenu(menu, function (err, result) {
   for (menuitem in result) {
-    console.log("createMenu:" + menuitem); // { errcode: 0, errmsg: 'ok' }
+    console.log("createMenu:" + result[menuitem]); // { errcode: 0, errmsg: 'ok' }
   }
 
 });
 
 api.getFollowers(function (err, data, res) {
   for (Followers in data) {
-    console.log("getFollowers:" + Followers); // { errcode: 0, errmsg: 'ok' }
+    console.log("getFollowers:" + data[Followers]); // { errcode: 0, errmsg: 'ok' }
   }
 });
 
