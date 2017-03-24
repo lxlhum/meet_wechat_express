@@ -22,7 +22,7 @@ api.createMenu(menu, function (err, result) {
   console.log("createMenu:" + result); // { errcode: 0, errmsg: 'ok' }
 });
 
-api.batchGetUsers([puling], function (err, data, res) {
+api.batchGetUsers(function (err, data, res) {
   console.log("batchGetUsers:" + data); // { errcode: 0, errmsg: 'ok' }
 })
 
