@@ -3,7 +3,6 @@ var router = express.Router();
 
 var wechat = require('wechat');
 var API = require('wechat-api');
-
 var config = {
   token: 'meet',
   appid: 'wx3a3f138d198893c4',
@@ -11,6 +10,16 @@ var config = {
   encodingAESKey: 'AjF2DgN0oCc7aq9sWXGvo8VtKXoWfQREoMOO6eVxfDc',
   checkSignature: true // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false
 };
+var api = new API(config.appid, config.appsecret);
+// console.log("wechatapi:"+api);
+api.getAccessToken(function (err, token) {
+  console.log("getAccessToken-err:"+err);
+  console.log("accessToken:"+token);  //accessToken
+});
+var menu = JSON.stringify(require('menu.json'));
+api.createMenu(menu, function (err, result) {
+  console.log("createMenu:"+result); // { errcode: 0, errmsg: 'ok' }
+});
 
 
 /* GET home page. */
@@ -59,7 +68,6 @@ router.post('/meetconfig', wechat(config,function(req, res, next) {
   }
 }));
 
-// var api = new API(config.appid, config.appsecret);
-// console.log("wechatapi:"+api);
+
 
 module.exports = router;
