@@ -35,7 +35,7 @@ api.createMenu(menu, function (err, result) {
 
 
 api.getFollowers(function (err, data, res) {
-  var mydata = data[data];
+  var mydata = data["data"];
   for (Followers in mydata) {
     console.log("getFollowers:" + mydata[Followers]); // { errcode: 0, errmsg: 'ok' }
   }
