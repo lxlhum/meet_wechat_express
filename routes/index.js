@@ -19,11 +19,16 @@ api.getAccessToken(function (err, token) {
 var menu = JSON.stringify(require('./menu.json'));
 
 api.createMenu(menu, function (err, result) {
-  console.log("createMenu:" + result); // { errcode: 0, errmsg: 'ok' }
+  for (menuitem in result) {
+    console.log("createMenu:" + menuitem); // { errcode: 0, errmsg: 'ok' }
+  }
+
 });
 
 api.getFollowers(function (err, data, res) {
-  console.log("getFollowers:" + data); // { errcode: 0, errmsg: 'ok' }
+  for (Followers in data) {
+    console.log("getFollowers:" + Followers); // { errcode: 0, errmsg: 'ok' }
+  }
 });
 
 /* GET home page. */
