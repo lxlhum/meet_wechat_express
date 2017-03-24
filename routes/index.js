@@ -6,32 +6,36 @@ var API = require('wechat-api');
 var config = {
   token: 'meet',
   appid: 'wx3a3f138d198893c4',
-  appsecret:'95bdcfaa2bd98f2b9c1bf294570252bd',
+  appsecret: '95bdcfaa2bd98f2b9c1bf294570252bd',
   encodingAESKey: 'AjF2DgN0oCc7aq9sWXGvo8VtKXoWfQREoMOO6eVxfDc',
   checkSignature: true // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false
 };
 var api = new API(config.appid, config.appsecret);
 // console.log("wechatapi:"+api);
 api.getAccessToken(function (err, token) {
-  console.log("getAccessToken-err:"+err);
-  console.log("accessToken:"+token);  //accessToken
+  console.log("getAccessToken-err:" + err);
+  console.log("accessToken:" + token);  //accessToken
 });
 var menu = JSON.stringify(require('./menu.json'));
 
 api.createMenu(menu, function (err, result) {
-  console.log("createMenu:"+result); // { errcode: 0, errmsg: 'ok' }
+  console.log("createMenu:" + result); // { errcode: 0, errmsg: 'ok' }
 });
+
+api.batchGetUsers([puling], function (err, data, res) {
+  console.log("batchGetUsers:" + data); // { errcode: 0, errmsg: 'ok' }
+})
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.get('/meetconfig',  wechat(config,function(req, res, next) {
+router.get('/meetconfig', wechat(config, function (req, res, next) {
   console.log("access");
 }));
-router.post('/meetconfig', wechat(config,function(req, res, next) {
-  
+router.post('/meetconfig', wechat(config, function (req, res, next) {
+
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
   console.log(message);
