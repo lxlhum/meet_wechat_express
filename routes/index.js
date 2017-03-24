@@ -22,10 +22,9 @@ api.createMenu(menu, function (err, result) {
   console.log("createMenu:" + result); // { errcode: 0, errmsg: 'ok' }
 });
 
-api.batchGetUsers(function (err, data, res) {
-  console.log("batchGetUsers:" + data); // { errcode: 0, errmsg: 'ok' }
-})
-
+api.getFollowers(function (err, data, res) {
+  console.log("getFollowers:" + data); // { errcode: 0, errmsg: 'ok' }
+});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
