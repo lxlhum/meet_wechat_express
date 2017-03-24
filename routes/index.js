@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 router.get('/test',  wechat(config,function(req, res, next) {}));
-router.post('/test', function(req, res, next) {
+router.post('/test', wechat(config,function(req, res, next) {
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
   if (message.FromUserName === 'diaosi') {
@@ -52,7 +52,7 @@ router.post('/test', function(req, res, next) {
       }
     ]);
   }
-});
+}));
 
 var api = new API(config.appid, config.appsecret);
 console.log("wechatapi:"+api);
