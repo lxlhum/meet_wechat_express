@@ -16,10 +16,14 @@ var config = {
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.get('/test',  wechat(config,function(req, res, next) {}));
+router.get('/test',  wechat(config,function(req, res, next) {
+  console.log("access");
+}));
 router.post('/test', wechat(config,function(req, res, next) {
+  
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
+  console.log(message);
   if (message.FromUserName === 'diaosi') {
     // 回复屌丝(普通回复)
     res.reply('hehe');
@@ -54,7 +58,7 @@ router.post('/test', wechat(config,function(req, res, next) {
   }
 }));
 
-var api = new API(config.appid, config.appsecret);
-console.log("wechatapi:"+api);
+// var api = new API(config.appid, config.appsecret);
+// console.log("wechatapi:"+api);
 
 module.exports = router;
