@@ -62,6 +62,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log(data);
 
         var qucodemedia = api.showQRCodeURL(data.ticket);
+          console.log(qucodemedia);
 
           res.reply({
             type: "image",
