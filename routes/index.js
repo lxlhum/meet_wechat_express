@@ -66,7 +66,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           res.reply({
             type: "image",
             content: {
-              mediaId: qucode
+              mediaId: qucodemedia
             }
           });
         });
