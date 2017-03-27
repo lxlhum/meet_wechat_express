@@ -45,24 +45,22 @@ api.getFollowers(function (err, data, res) {
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.get('/meetconfig', wechat(config, function (req, res, next) {
-  console.log("access");
-}));
+router.get('/meetconfig', wechat(config, function (req, res, next) {}));
 router.post('/meetconfig', wechat(config, function (req, res, next) {
 
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
   console.log(message);
-  if (message.FromUserName === 'diaosi') {
+  if (message.MsgType === 'diaosi') {
     // 回复屌丝(普通回复)
     res.reply('hehe');
-  } else if (message.FromUserName === 'text') {
+  } else if (message.MsgType === 'text') {
     //你也可以这样回复text类型的信息
     res.reply({
       content: 'text object',
       type: 'text'
     });
-  } else if (message.FromUserName === 'hehe') {
+  } else if (message.MsgType === 'hehe') {
     // 回复一段音乐
     res.reply({
       type: "music",
