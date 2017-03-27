@@ -57,7 +57,19 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
     case "text": {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
-      } else if (message.Content === 'hehe') {
+      } else if (message.Content === 'qr') {
+        api.createTmpQRCode(123, 1, function (err, data, res) {
+          console.log(data);
+          res.reply([
+            {
+              title: 'meet_test_shell',
+              description: 'meet_test_shell',
+              picurl: data.url
+            }
+          ]);
+        });
+      }
+      else if (message.Content === 'hehe') {
         // 回复音乐
         res.reply({
           type: "music",
