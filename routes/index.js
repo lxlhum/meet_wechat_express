@@ -58,7 +58,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'qr') {
-        api.createTmpQRCode(123, 1, function (err, data, res) {
+        api.createTmpQRCode(123, 100, function (err, data, res) {
           console.log(data);
           res.reply([
             {
