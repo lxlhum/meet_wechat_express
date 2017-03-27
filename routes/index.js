@@ -60,13 +60,12 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       } else if (message.Content === 'qr') {
         api.createTmpQRCode(123, 100, function (err, data, response) {
           console.log(data);
-          res.reply([
-            {
-              title: 'meet_test_shell',
-              description: 'meet_test_shell',
-              picurl: data.url
+          res.reply({
+            type: "image",
+            content: {
+              mediaId: data.url
             }
-          ]);
+          });
         });
       }
       else if (message.Content === 'hehe') {
