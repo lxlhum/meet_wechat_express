@@ -5,8 +5,8 @@ var wechat = require('wechat');
 var API = require('wechat-api');
 var config = require('../profile.json');
 
-var urllib = require('urllib');
-var muk = require('muk');
+// var urllib = require('urllib');
+// var muk = require('muk');
 
 var api = new API(config.appid, config.appsecret);
 // console.log("wechatapi:"+api);
