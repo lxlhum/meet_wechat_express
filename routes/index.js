@@ -29,17 +29,17 @@ api.createMenu(menu, function (err, result) {
 // getFollowers:next_openid
 
 
-api.getFollowers(function (err, data, res) {
-  var mydata = data["data"]["openid"];
-  for (Followers in mydata) {
-    console.log("getFollowers:" + mydata[Followers]); // { errcode: 0, errmsg: 'ok' }
-    api.getUser(mydata[Followers], function (err, data, res) {
-      for (key in data) {
-        console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
-      }
-    });
-  }
-});
+// api.getFollowers(function (err, data, res) {
+//   var mydata = data["data"]["openid"];
+//   for (Followers in mydata) {
+//     console.log("getFollowers:" + mydata[Followers]); // { errcode: 0, errmsg: 'ok' }
+//     api.getUser(mydata[Followers], function (err, data, res) {
+//       for (key in data) {
+//         console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
+//       }
+//     });
+//   }
+// });
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -81,18 +81,23 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           }
         ]);
       }
-    };break;
-    case "event":{
-      switch(message.Event){
-        case "subscribe":{
+    }; break;
+    case "event": {
+      switch (message.Event) {
+        case "subscribe": {
           res.reply('subscribe');
-        };break;
-        case "unsubscribe":{
+          api.getUser(message.FromUserName, function (err, data, res) {
+            for (key in data) {
+              console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
+            }
+          });
+        }; break;
+        case "unsubscribe": {
           res.reply('unsubscribe');
-        };break;
+        }; break;
       }
-    };break;
-    
+    }; break;
+
   }
 
 
