@@ -48,6 +48,7 @@ router.get('/', function (req, res, next) {
 router.get('/meetconfig', wechat(config, function (req, res, next) {}));
 router.post('/meetconfig', wechat(config, function (req, res, next) {
 
+  console.log("消息判断和事件响应");
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
   console.log(message);
