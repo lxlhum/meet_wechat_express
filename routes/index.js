@@ -5,6 +5,9 @@ var wechat = require('wechat');
 var API = require('wechat-api');
 var config = require('../profile.json');
 
+var urllib = require('urllib');
+var muk = require('muk');
+
 var api = new API(config.appid, config.appsecret);
 // console.log("wechatapi:"+api);
 api.getAccessToken(function (err, token) {
@@ -61,15 +64,20 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         api.createTmpQRCode(123, 100, function (err, data, response) {
           console.log(data);
 
-        var qucodemedia = api.showQRCodeURL(data.ticket);
+          var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log(qucodemedia);
 
-          res.reply({
-            type: "image",
-            content: {
-              mediaId: qucodemedia
-            }
+          api.uploadImage(qucodemedia, function (err, data, respImage) {
+            console.log(data);
+            res.reply({
+              type: "image",
+              content: {
+                mediaId: data
+              }
+            });
           });
+
+
         });
       }
       else if (message.Content === 'hehe') {
