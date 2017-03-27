@@ -45,45 +45,57 @@ api.getFollowers(function (err, data, res) {
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.get('/meetconfig', wechat(config, function (req, res, next) {}));
+router.get('/meetconfig', wechat(config, function (req, res, next) { }));
 router.post('/meetconfig', wechat(config, function (req, res, next) {
 
   console.log("消息判断和事件响应");
-  // 微信输入信息都在req.weixin上
+
   var message = req.weixin;
   console.log(message);
-  if (message.MsgType === 'diaosi') {
-    // 回复屌丝(普通回复)
-    res.reply('hehe');
-  } else if (message.MsgType === 'text') {
-    //你也可以这样回复text类型的信息
-    res.reply({
-      content: 'text object',
-      type: 'text'
-    });
-  } else if (message.MsgType === 'hehe') {
-    // 回复一段音乐
-    res.reply({
-      type: "music",
-      content: {
-        title: "来段音乐吧",
-        description: "一无所有",
-        musicUrl: "http://mp3.com/xx.mp3",
-        hqMusicUrl: "http://mp3.com/xx.mp3",
-        thumbMediaId: "thisThumbMediaId"
+
+  switch (message.MsgType) {
+    case "text": {
+      if (message.Content === 'diaosi') {
+        res.reply('hehe');
+      } else if (message.Content === 'hehe') {
+        // 回复音乐
+        res.reply({
+          type: "music",
+          content: {
+            title: "来段音乐吧",
+            description: "一无所有",
+            musicUrl: "http://mp3.com/xx.mp3",
+            hqMusicUrl: "http://mp3.com/xx.mp3",
+            thumbMediaId: "thisThumbMediaId"
+          }
+        });
       }
-    });
-  } else {
-    // 回复高富帅(图文回复)
-    res.reply([
-      {
-        title: 'meet_test_shell',
-        description: 'meet_test_shell',
-        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-        url: 'http://www.yangtz.com'
+      else {
+        //图文回复
+        res.reply([
+          {
+            title: 'meet_test_shell',
+            description: 'meet_test_shell',
+            picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+            url: 'http://www.yangtz.com'
+          }
+        ]);
       }
-    ]);
+    };break;
+    case "event":{
+      switch(message.Event){
+        case "subscribe":{
+          res.reply('subscribe');
+        };break;
+        case "unsubscribe":{
+          res.reply('unsubscribe');
+        };break;
+      }
+    };break;
+    
   }
+
+
 }));
 
 
