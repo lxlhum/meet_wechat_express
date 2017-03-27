@@ -5,6 +5,8 @@ var wechat = require('wechat');
 var API = require('wechat-api');
 var config = require('../profile.json');
 
+var request = require('request');
+
 // var urllib = require('urllib');
 // var muk = require('muk');
 
@@ -67,10 +69,12 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log(qucodemedia);
 
-          api.uploadImage(qucodemedia, function (err, data, respImage) {
-            console.log("data:"+data);
-            console.log("err:"+err);
-            console.log("respImage:"+respImage);
+          request.post(qucodemedia, function (error, response, body) {
+
+          api.uploadImage(body, function (err, data, respImage) {
+            console.log("data:" + data);
+            console.log("err:" + err);
+            console.log("respImage:" + respImage);
             res.reply({
               type: "image",
               content: {
@@ -78,7 +82,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               }
             });
           });
-
+          });
 
         });
       }
