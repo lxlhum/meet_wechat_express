@@ -68,7 +68,9 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log(qucodemedia);
 
           api.uploadImage(qucodemedia, function (err, data, respImage) {
-            console.log(data);
+            console.log("data:"+data);
+            console.log("err:"+err);
+            console.log("respImage:"+respImage);
             res.reply({
               type: "image",
               content: {
