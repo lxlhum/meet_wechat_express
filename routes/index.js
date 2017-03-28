@@ -71,25 +71,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log("showQRCodeURL:" + qucodemedia);
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
 
-
-
-
-
-
-          api.uploadMedia("../wechat/wechat_temp_qr/oyjl4whqObe-1MsJT1z_eLWIEpZQ1490682583.png", "image", function (err, result) {
-
-            console.log("result:" + result);
-            console.log("err:" + err);
-            res.reply({
-              type: "image",
-              content: {
-                mediaId: result.media_id
-              }
-            });
-          })
-
-
-          // console.log("qr_path:" + qr_path);
+          console.log("qr_path:" + qr_path);
           // var request_qr = function* () {
           //     console.log("执行:yield request(qucodemedia)" );
           //     yield request(qucodemedia).pipe(fs.createWriteStream(qr_path));
@@ -145,11 +127,11 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           //     })
           // );
 
-          // request(qucodemedia,function(err,response,body){
-          //   console.log(err);
-          //   console.log(response);
-          //   console.log(body);
-          // });
+          request(qucodemedia,function(err,response,body){
+            console.log(err);
+            console.log(response);
+            console.log(body);
+          });
 
 
         });
