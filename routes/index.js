@@ -68,11 +68,26 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log(data);
 
           var qucodemedia = api.showQRCodeURL(data.ticket);
-          console.log(qucodemedia);
+          console.log("showQRCodeURL:" + qucodemedia);
 
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
-          request(qucodemedia, function (err, response, body) {
-            fs.createWriteStream(qr_path, function (error, data) {
+          // request(qucodemedia, function (err, response, body) {
+          //   console.log("showQRCodeURL:"+qucodemedia);
+          //   fs.createWriteStream(qr_path, function (error, data) {
+          //     api.uploadMedia(qr_path, "image", function (err, result) {
+          //       console.log("result:" + result);
+          //       console.log("err:" + err);
+          //       res.reply({
+          //         type: "image",
+          //         content: {
+          //           mediaId: result.media_id
+          //         }
+          //       });
+          //     })
+          //   });
+          // });
+
+          request(qucodemedia).pipe(fs.createWriteStream(qr_path)).pipe(
               api.uploadMedia(qr_path, "image", function (err, result) {
                 console.log("result:" + result);
                 console.log("err:" + err);
@@ -83,9 +98,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
                   }
                 });
               })
-            });
-          });
-
+          );
         });
       }
       else if (message.Content === 'hehe') {
