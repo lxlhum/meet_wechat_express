@@ -69,8 +69,31 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log("showQRCodeURL:" + qucodemedia);
-
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
+          console.log("qr_path:" + qr_path);
+          var request_qr = function* () {
+            request(qucodemedia).pipe(fs.createWriteStream(qr_path));
+          };
+
+          var ask_qr = function* () {
+            api.uploadMedia(qr_path, "image", function (err, result) {
+              console.log("result:" + result);
+              console.log("err:" + err);
+              res.reply({
+                type: "image",
+                content: {
+                  mediaId: result.media_id
+                }
+              });
+            })
+          };
+
+          yield request_qr;
+          yield ask_qr;
+
+
+          
+
           // request(qucodemedia, function (err, response, body) {
           //   console.log("showQRCodeURL:"+qucodemedia);
           //   fs.createWriteStream(qr_path, function (error, data) {
@@ -87,18 +110,26 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           //   });
           // });
 
-          request(qucodemedia).pipe(fs.createWriteStream(qr_path)).pipe(
-              api.uploadMedia(qr_path, "image", function (err, result) {
-                console.log("result:" + result);
-                console.log("err:" + err);
-                res.reply({
-                  type: "image",
-                  content: {
-                    mediaId: result.media_id
-                  }
-                });
-              })
-          );
+          // request(qucodemedia).pipe(fs.createWriteStream(qr_path)).pipe(
+          //     api.uploadMedia(qr_path, "image", function (err, result) {
+          //       console.log("result:" + result);
+          //       console.log("err:" + err);
+          //       res.reply({
+          //         type: "image",
+          //         content: {
+          //           mediaId: result.media_id
+          //         }
+          //       });
+          //     })
+          // );
+
+          // request(qucodemedia,function(err,response,body){
+          //   console.log(err);
+          //   console.log(response);
+          //   console.log(body);
+          // });
+
+
         });
       }
       else if (message.Content === 'hehe') {
