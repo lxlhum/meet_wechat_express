@@ -75,7 +75,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               console.log("执行:yield request(qucodemedia)" );
               yield request(qucodemedia).pipe(fs.createWriteStream(qr_path));
               console.log("执行:yield ask_qr()");
-              yield ask_qr();
+              yield* ask_qr();
           };
 
           var ask_qr = function* () {
