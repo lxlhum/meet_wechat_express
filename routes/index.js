@@ -8,7 +8,7 @@ var fs = require('fs');
 
 var request = require('request');
 
-var gm = require('gm');
+var gm = require('gm').subClass({imageMagick: true});
 
 // var urllib = require('urllib');
 // var muk = require('muk');
