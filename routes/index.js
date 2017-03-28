@@ -71,101 +71,23 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log("showQRCodeURL:" + qucodemedia);
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
 
-          console.log("qr_path:" + qr_path);
-          // var request_qr = function* () {
-          //     console.log("执行:yield request(qucodemedia)" );
-          //     yield request(qucodemedia).pipe(fs.createWriteStream(qr_path));
-          //     console.log("执行:yield ask_qr()");
-          //     yield* ask_qr();
-          // };
-
-
           var fileWriteStream = fs.createWriteStream(qr_path);
           console.log("qr_path:" + qr_path);
           request(qucodemedia).pipe(fileWriteStream);
           fileWriteStream.on('close', function () {
             console.log('copy over');
+
+            api.uploadMedia(qr_path, "image", function (err, result) {
+              console.log("result:" + result);
+              console.log("err:" + err);
+              res.reply({
+                type: "image",
+                content: {
+                  mediaId: result.media_id
+                }
+              });
+            })
           });
-
-          // var ask_qr = function* () {
-          //   console.log("进入:yield ask_qr()");
-          //   api.uploadMedia(qr_path, "image", function (err, result) {
-
-          //     console.log("result:" + result);
-          //     console.log("err:" + err);
-          //     res.reply({
-          //       type: "image",
-          //       content: {
-          //         mediaId: result.media_id
-          //       }
-          //     });
-          //   })
-          // };
-
-          // console.log("先执行执行:request_qr()");
-          // for (let x of request_qr()) console.log(x);
-
-
-          // request(qucodemedia, function (err, response, body) {
-          //   console.log("showQRCodeURL:"+qucodemedia);
-          //   fs.createWriteStream(qr_path, function (error, data) {
-          //     api.uploadMedia(qr_path, "image", function (err, result) {
-          //       console.log("result:" + result);
-          //       console.log("err:" + err);
-          //       res.reply({
-          //         type: "image",
-          //         content: {
-          //           mediaId: result.media_id
-          //         }
-          //       });
-          //     })
-          //   });
-          // });
-
-          // request(qucodemedia).pipe(fs.createWriteStream(qr_path)).pipe(
-          //     api.uploadMedia(qr_path, "image", function (err, result) {
-          //       console.log("result:" + result);
-          //       console.log("err:" + err);
-          //       res.reply({
-          //         type: "image",
-          //         content: {
-          //           mediaId: result.media_id
-          //         }
-          //       });
-          //     })
-          // );
-
-
-
-          // request(qucodemedia, function (err, response, body) {
-          // console.log(err);
-          // console.log(response);
-          // console.log(body);
-          // var fileReadStream = fs.createReadStream(qucodemedia, rOption);
-          // var fileWriteStream = fs.createWriteStream(qr_path, wOption);
-
-          // fileReadStream.on('data', function (data) {
-          //   fileWriteStream.write(data);
-          // });
-
-          // fileReadStream.on('end', function () {
-          //   console.log("readStream end");
-          //   fileWriteStream.end();
-          //   api.uploadMedia(qr_path, "image", function (err, result) {
-          //     console.log("result:" + result);
-          //     console.log("err:" + err);
-          //     res.reply({
-          //       type: "image",
-          //       content: {
-          //         mediaId: result.media_id
-          //       }
-          //     });
-          //   })
-          // });
-
-          // });
-
-
         });
       }
       else if (message.Content === 'hehe') {
