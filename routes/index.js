@@ -72,7 +72,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
           console.log("qr_path:" + qr_path);
           var request_qr = function* () {
-            request(qucodemedia).pipe(fs.createWriteStream(qr_path));
+              yield request(qucodemedia).pipe(fs.createWriteStream(qr_path));
+              yield ask_qr();
           };
 
           var ask_qr = function* () {
@@ -88,11 +89,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             })
           };
 
-          yield request_qr;
-          yield ask_qr;
-
-
-          
+          request_qr();
+                 
 
           // request(qucodemedia, function (err, response, body) {
           //   console.log("showQRCodeURL:"+qucodemedia);
