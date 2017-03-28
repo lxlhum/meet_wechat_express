@@ -70,23 +70,23 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log(qucodemedia);
 
-          var qr_path = '../wechat/wechat_temp_qr/'+message.FromUserName+message.CreateTime+'.png';
-          request(qucodemedia,function(error,response,body){
-
-          api.uploadMedia(qr_path, "image",function (err, result) {
-            console.log("result:" + result);
-            console.log("err:" + err);
-            res.reply({
-              type: "image",
-              content: {
-                mediaId: result.media_id
-              }
-            });
-          });
-          }).pipe(fs.createWriteStream(qr_path));
-          
-
-      });}
+          var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
+          request(qucodemedia)
+            .pipe(fs.createWriteStream(qr_path)
+              .pipe(
+              api.uploadMedia(qr_path, "image", function (err, result) {
+                console.log("result:" + result);
+                console.log("err:" + err);
+                res.reply({
+                  type: "image",
+                  content: {
+                    mediaId: result.media_id
+                  }
+                });
+              })
+              ));
+        });
+      }
       else if (message.Content === 'hehe') {
         // 回复音乐
         res.reply({
