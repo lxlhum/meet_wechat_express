@@ -5,7 +5,7 @@ var wechat = require('wechat');
 var API = require('wechat-api');
 var config = require('../profile.json');
 var fs = require('fs');
-var images = require("images");
+
 var request = require('request');
 
 var gm = require('gm');
