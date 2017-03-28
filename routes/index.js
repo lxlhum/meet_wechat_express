@@ -94,6 +94,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
                 .resize(240, 240)
                 .noProfile()
                 .write(qr_path_out, function (err) {
+                  console.log(err);
                   if (!err) console.log('done');
                 });
 
