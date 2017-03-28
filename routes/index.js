@@ -70,22 +70,22 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log(qucodemedia);
 
-          api.uploadMedia("../a.jpg", "image",function (err, result) {
-            console.log("result:" + result);
-            console.log("err:" + err);
-            for (key in result) {
-              console.log(key + ":" + result[key]); // { errcode: 0, errmsg: 'ok' }
-            }
+          request(qucodemedia).pipe(fs.createWriteStream('../wechat/wechat_temp_qr/doodle.png'));
+          
+           
 
-            res.reply({
-              type: "image",
-              content: {
-                mediaId: result.media_id
-              }
-            });
-          });
-        });
-      }
+          // api.uploadImage(body, function (err, data, respImage) {
+          //   console.log("data:" + data);
+          //   console.log("err:" + err);
+          //   console.log("respImage:" + respImage);
+          //   res.reply({
+          //     type: "image",
+          //     content: {
+          //       mediaId: data
+          //     }
+          //   });
+          // });
+      });}
       else if (message.Content === 'hehe') {
         // 回复音乐
         res.reply({
