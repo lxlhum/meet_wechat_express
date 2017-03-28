@@ -73,7 +73,10 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           api.uploadImage("../a.jpg", function (err, result) {
             console.log("result:" + result);
             console.log("err:" + err);
-        
+            for (key in result) {
+              console.log(key + ":" + result[key]); // { errcode: 0, errmsg: 'ok' }
+            }
+
             res.reply({
               type: "image",
               content: {
