@@ -76,7 +76,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
 
 
-          api.uploadMedia("../wechat/wechat_temp_qr / oyjl4whqObe - 1MsJT1z_eLWIEpZQ1490682583.png", "image", function (err, result) {
+          api.uploadMedia("../wechat/wechat_temp_qr/oyjl4whqObe-1MsJT1z_eLWIEpZQ1490682583.png", "image", function (err, result) {
 
             console.log("result:" + result);
             console.log("err:" + err);
