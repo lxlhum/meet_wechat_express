@@ -79,6 +79,14 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           //     yield* ask_qr();
           // };
 
+
+          var fileWriteStream = fs.createWriteStream(qr_path);
+          console.log("qr_path:" + qr_path);
+          request(qucodemedia).pipe(fileWriteStream);
+          fileWriteStream.on('close', function () {
+            console.log('copy over');
+          });
+
           // var ask_qr = function* () {
           //   console.log("进入:yield ask_qr()");
           //   api.uploadMedia(qr_path, "image", function (err, result) {
@@ -126,43 +134,34 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           //       });
           //     })
           // );
-          var rOption = {
-            flags: "r",
-            encoding: null,
-            mode: 0666
-          }
 
-          var wOption = {
-            flags: 'a',
-            encoding: null,
-            mode: 0666
-          }
+
 
           // request(qucodemedia, function (err, response, body) {
-            // console.log(err);
-            // console.log(response);
-            // console.log(body);
-            var fileReadStream = fs.createReadStream(qucodemedia, rOption);
-            var fileWriteStream = fs.createWriteStream(qr_path, wOption);
+          // console.log(err);
+          // console.log(response);
+          // console.log(body);
+          // var fileReadStream = fs.createReadStream(qucodemedia, rOption);
+          // var fileWriteStream = fs.createWriteStream(qr_path, wOption);
 
-            fileReadStream.on('data', function (data) {
-              fileWriteStream.write(data);
-            });
+          // fileReadStream.on('data', function (data) {
+          //   fileWriteStream.write(data);
+          // });
 
-            fileReadStream.on('end', function () {
-              console.log("readStream end");
-              fileWriteStream.end();
-              api.uploadMedia(qr_path, "image", function (err, result) {
-                console.log("result:" + result);
-                console.log("err:" + err);
-                res.reply({
-                  type: "image",
-                  content: {
-                    mediaId: result.media_id
-                  }
-                });
-              })
-            });
+          // fileReadStream.on('end', function () {
+          //   console.log("readStream end");
+          //   fileWriteStream.end();
+          //   api.uploadMedia(qr_path, "image", function (err, result) {
+          //     console.log("result:" + result);
+          //     console.log("err:" + err);
+          //     res.reply({
+          //       type: "image",
+          //       content: {
+          //         mediaId: result.media_id
+          //       }
+          //     });
+          //   })
+          // });
 
           // });
 
