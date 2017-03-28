@@ -8,7 +8,7 @@ var fs = require('fs');
 
 var request = require('request');
 
-var gm = require('gm').subClass({imageMagick: true});
+var gm = require('gm').subClass({ imageMagick: true });
 
 // var urllib = require('urllib');
 // var muk = require('muk');
@@ -73,6 +73,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log("showQRCodeURL:" + qucodemedia);
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
           var a_path = '../wechat/wechat_temp_qr/a.jpg';
+          var b_path = '../wechat/wechat_temp_qr/b.jpg';
+          var c_path = '../wechat/wechat_temp_qr/c.png';
           var qr_path_out = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '_out.png';
 
           var fileWriteStream = fs.createWriteStream(qr_path);
@@ -90,12 +92,19 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
             api.uploadMedia(qr_path, "image", function (err, result) {
 
+              // gm(a_path)
+              //   .resize(480, 240)
+              //   .noProfile()
+              //   .write(qr_path_out, function (err) {
+              //     console.log(err);
+              //     if (!err) console.log('done');
+              //   });
+
               gm(a_path)
-                .resize(240, 240)
-                .noProfile()
+                .composite(b_path)
+                .geometry('+100+150')
                 .write(qr_path_out, function (err) {
-                  console.log(err);
-                  if (!err) console.log('done');
+                  if (!err) console.log("Written composite image.");
                 });
 
               console.log("result:" + result);
