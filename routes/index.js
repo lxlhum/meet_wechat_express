@@ -138,11 +138,11 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             mode: 0666
           }
 
-          request(qucodemedia, function (err, response, body) {
+          // request(qucodemedia, function (err, response, body) {
             // console.log(err);
             // console.log(response);
             // console.log(body);
-            var fileReadStream = fs.createReadStream(body, rOption);
+            var fileReadStream = fs.createReadStream(qucodemedia, rOption);
             var fileWriteStream = fs.createWriteStream(qr_path, wOption);
 
             fileReadStream.on('data', function (data) {
@@ -164,7 +164,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               })
             });
 
-          });
+          // });
 
 
         });
