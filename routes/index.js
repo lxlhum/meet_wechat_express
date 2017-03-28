@@ -5,7 +5,7 @@ var wechat = require('wechat');
 var API = require('wechat-api');
 var config = require('../profile.json');
 var fs = require('fs');
-
+var images = require("images");
 var request = require('request');
 
 // var urllib = require('urllib');
@@ -70,6 +70,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log("showQRCodeURL:" + qucodemedia);
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
+          var a_path = '../wechat/wechat_temp_qr/a.jpg';
+          var qr_path_out = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '_out.png';
 
           var fileWriteStream = fs.createWriteStream(qr_path);
           console.log("qr_path:" + qr_path);
@@ -77,7 +79,14 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           fileWriteStream.on('close', function () {
             console.log('copy over');
 
-            api.uploadMedia(qr_path, "image", function (err, result) {
+            images(a_path)
+              .size(400)
+              .draw(images(qr_path), 40, 40)
+              .save(qr_path_out, {
+                quality: 50
+              });
+
+            api.uploadMedia(qr_path_out, "image", function (err, result) {
               console.log("result:" + result);
               console.log("err:" + err);
               res.reply({
