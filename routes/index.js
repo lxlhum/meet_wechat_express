@@ -4,6 +4,7 @@ var router = express.Router();
 var wechat = require('wechat');
 var API = require('wechat-api');
 var config = require('../profile.json');
+var fs = require('fs');
 
 var request = require('request');
 
@@ -69,12 +70,10 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log(qucodemedia);
 
-          request.post(qucodemedia, function (error, response, body) {
-
-          api.uploadImage(body, function (err, data, respImage) {
-            console.log("data:" + data);
+          api.uploadImage(qucodemedia, function (err, result) {
+            console.log("result:" + result);
             console.log("err:" + err);
-            console.log("respImage:" + respImage);
+        
             res.reply({
               type: "image",
               content: {
@@ -82,8 +81,6 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               }
             });
           });
-          });
-
         });
       }
       else if (message.Content === 'hehe') {
