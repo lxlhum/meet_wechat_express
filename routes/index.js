@@ -70,21 +70,19 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log(qucodemedia);
 
-          request(qucodemedia).pipe(fs.createWriteStream('../wechat/wechat_temp_qr/doodle.png'));
+          var qr_path = '../wechat/wechat_temp_qr/'+message.FromUserName+message.CreateTime+'.png';
+          request(qucodemedia).pipe(fs.createWriteStream(qr_path));
           
-           
-
-          // api.uploadImage(body, function (err, data, respImage) {
-          //   console.log("data:" + data);
-          //   console.log("err:" + err);
-          //   console.log("respImage:" + respImage);
-          //   res.reply({
-          //     type: "image",
-          //     content: {
-          //       mediaId: data
-          //     }
-          //   });
-          // });
+          api.uploadMedia(qr_path, "image",function (err, result) {
+            console.log("result:" + result);
+            console.log("err:" + err);
+            res.reply({
+              type: "image",
+              content: {
+                mediaId: result.media_id
+              }
+            });
+          });
       });}
       else if (message.Content === 'hehe') {
         // 回复音乐
