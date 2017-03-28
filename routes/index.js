@@ -8,6 +8,8 @@ var fs = require('fs');
 var images = require("images");
 var request = require('request');
 
+var gm = require('gm');
+
 // var urllib = require('urllib');
 // var muk = require('muk');
 
@@ -79,14 +81,22 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           fileWriteStream.on('close', function () {
             console.log('copy over');
 
-            images(a_path)
-              .size(400)
-              .draw(images(qr_path), 40, 40)
-              .save(qr_path_out, {
-                quality: 50
-              });
+            // images(a_path)
+            //   .size(400)
+            //   .draw(images(qr_path), 40, 40)
+            //   .save(qr_path_out, {
+            //     quality: 50
+            //   });
 
-            api.uploadMedia(qr_path_out, "image", function (err, result) {
+            api.uploadMedia(qr_path, "image", function (err, result) {
+
+              gm(a_path)
+                .resize(240, 240)
+                .noProfile()
+                .write(qr_path_out, function (err) {
+                  if (!err) console.log('done');
+                });
+
               console.log("result:" + result);
               console.log("err:" + err);
               res.reply({
