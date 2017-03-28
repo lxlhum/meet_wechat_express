@@ -128,13 +128,13 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           // );
           var rOption = {
             flags: "r",
-            encoding: "bianry",
+            encoding: null,
             mode: 0666
           }
 
           var wOption = {
             flags: 'a',
-            encoding: "bianry",
+            encoding: null,
             mode: 0666
           }
 
