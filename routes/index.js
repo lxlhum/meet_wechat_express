@@ -92,6 +92,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             })
           };
 
+          console.log("先执行执行:request_qr()");
           request_qr();
                  
 
