@@ -77,7 +77,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             res.reply({
               type: "image",
               content: {
-                mediaId: data
+                mediaId: result.media_id
               }
             });
           });
