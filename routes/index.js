@@ -72,11 +72,14 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
           console.log("qr_path:" + qr_path);
           var request_qr = function* () {
+              console.log("执行:yield request(qucodemedia)" );
               yield request(qucodemedia).pipe(fs.createWriteStream(qr_path));
+              console.log("执行:yield ask_qr()");
               yield ask_qr();
           };
 
           var ask_qr = function* () {
+            console.log("进入:yield ask_qr()");
             api.uploadMedia(qr_path, "image", function (err, result) {
               console.log("result:" + result);
               console.log("err:" + err);
