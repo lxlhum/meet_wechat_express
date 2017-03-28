@@ -70,7 +70,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log(qucodemedia);
 
-          api.uploadImage("../a.jpg", function (err, result) {
+          api.uploadMedia("../a.jpg", "image",function (err, result) {
             console.log("result:" + result);
             console.log("err:" + err);
             for (key in result) {
