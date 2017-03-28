@@ -71,7 +71,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log(qucodemedia);
 
           var qr_path = '../wechat/wechat_temp_qr/'+message.FromUserName+message.CreateTime+'.png';
-          request(qucodemedia).pipe(fs.createWriteStream(qr_path));
+          request(qucodemedia,function(error,response,body){
+
           
           api.uploadMedia(qr_path, "image",function (err, result) {
             console.log("result:" + result);
@@ -83,6 +84,9 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               }
             });
           });
+          }).pipe(fs.createWriteStream(qr_path));
+          
+
       });}
       else if (message.Content === 'hehe') {
         // 回复音乐
