@@ -126,11 +126,44 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           //       });
           //     })
           // );
+          var rOption = {
+            flags: "r",
+            encoding: "bianry",
+            mode: 0666
+          }
 
-          request(qucodemedia,function(err,response,body){
-            console.log(err);
-            console.log(response);
-            console.log(body);
+          var wOption = {
+            flags: 'a',
+            encoding: "bianry",
+            mode: 0666
+          }
+
+          request(qucodemedia, function (err, response, body) {
+            // console.log(err);
+            // console.log(response);
+            // console.log(body);
+            var fileReadStream = fs.createReadStream(body, rOption);
+            var fileWriteStream = fs.createWriteStream(qr_path, wOption);
+
+            fileReadStream.on('data', function (data) {
+              fileWriteStream.write(data);
+            });
+
+            fileReadStream.on('end', function () {
+              console.log("readStream end");
+              fileWriteStream.end();
+              api.uploadMedia(qr_path, "image", function (err, result) {
+                console.log("result:" + result);
+                console.log("err:" + err);
+                res.reply({
+                  type: "image",
+                  content: {
+                    mediaId: result.media_id
+                  }
+                });
+              })
+            });
+
           });
 
 
