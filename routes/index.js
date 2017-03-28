@@ -73,7 +73,6 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qr_path = '../wechat/wechat_temp_qr/'+message.FromUserName+message.CreateTime+'.png';
           request(qucodemedia,function(error,response,body){
 
-          
           api.uploadMedia(qr_path, "image",function (err, result) {
             console.log("result:" + result);
             console.log("err:" + err);
